@@ -1,31 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace GMI_Technical_Assessment.Code
 {
     public static class GridLoader
     {
-        public static Grid LoadFromFile(string fileName)
+        public static Grid LoadFromFile(TextAsset textAsset)
         {
-            if(!File.Exists(fileName))
-            {
-                Console.WriteLine($"ERROR - File {fileName} doesn't exist");
-                return null;
-            }
-
-            string text = File.ReadAllText(fileName);
-
-            if (text.Length == 0)
-            {
-                Console.WriteLine($"ERROR - File {fileName} doesn't have content or broken");
-                return null;
-            }
-
+            string text = textAsset.text;
+            
             string gridText = text.Split('-')[0];
             string[] rows = gridText.Split(new[] {'\r', '\n'} );
             rows = rows.Where(x=>!string.IsNullOrEmpty(x)).ToArray();
@@ -57,25 +40,13 @@ namespace GMI_Technical_Assessment.Code
             return grid;
         }
 
-        public static MatchTest[] FillTests(MatchTest[] tests, string fileName)
+        public static MatchTest[] FillTests(TextAsset textAsset, MatchTest[] tests)
         {
-            if (!File.Exists(fileName))
-            {
-                Console.WriteLine($"ERROR - File {fileName} doesn't exist");
-                return null;
-            }
-
-            string text = File.ReadAllText(fileName);
-
-            if (text.Length == 0)
-            {
-                Console.WriteLine($"ERROR - File {fileName} doesn't have content or broken");
-                return null;
-            }
+            string text = textAsset.text;
 
             if (text.Split('-').Length < 2)
             {
-                Console.WriteLine($"WARNING - This file doesn't have tests");
+                Debug.LogWarning($"This file {textAsset.name} doesn't have tests");
                 return tests;
             }
 
@@ -112,24 +83,6 @@ namespace GMI_Technical_Assessment.Code
             }
 
             return tests;
-        }
-
-        public static Grid GetRandomized(int height, int width, int fillPercent = 50)
-        {
-            int[,] gridMatrix = new int[height, width];
-            Random random = new Random();
-
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    gridMatrix[i,j] = random.Next(0, 101) >= 100 - fillPercent ? 1 : 0;
-                }
-            }
-
-            Grid grid = new Grid(gridMatrix);
-
-            return grid;
         }
     }
 }

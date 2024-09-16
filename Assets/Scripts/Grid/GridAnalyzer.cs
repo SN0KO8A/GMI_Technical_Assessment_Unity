@@ -13,17 +13,12 @@ namespace GMI_Technical_Assessment.Code
         private MatchTest[] tests;
 
         public MatchTest[] MatchTests { get { return tests; } set { tests = value; } }
+        public MatchFormations[] Formations { get { return formations; } set { formations = value; } }
 
         public GridAnalyzer(MatchFormations[] formations)
         {
             this.formations = formations;
             this.tests = new MatchTest[0];
-        }
-
-        public GridAnalyzer(MatchFormations[] formations, MatchTest[] tests)
-        {
-            this.formations = formations;
-            this.tests = tests;
         }
 
         public void Analyze(Grid grid)
@@ -51,27 +46,6 @@ namespace GMI_Technical_Assessment.Code
 
             return isAllTestPassed;
         }
-
-        public void DisplayResult()
-        {
-            foreach (MatchFormations rule in formations)
-            {
-                //rule.DisplayResult();
-            }
-        }
-
-        public void DisplayTestResult()
-        {
-            for (int i = 0; i < formations.Length; i++)
-            {
-                //formations[i].DisplayResult();
-
-                if (i < tests.Length)
-                {
-                    tests[i].DisplayTestResult();
-                }
-            }
-        }
     }
 
     public class MatchTest
@@ -82,6 +56,8 @@ namespace GMI_Technical_Assessment.Code
         private bool isTestPassed;
 
         public string ID => matchID;
+        public int RequiredMatches => requiredMatches;
+        public bool IsTestPassed => isTestPassed;
 
         public MatchTest(string matchID)
         {

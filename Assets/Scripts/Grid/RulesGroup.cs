@@ -11,6 +11,10 @@ namespace GMI_Technical_Assessment.Code
         protected MatchRule[] rules;
 
         protected Color formationColor;
+        
+        public string Name => name;
+        public int MatchesCount => matchesCount;
+        public Color FormationColor => formationColor;
 
         public MatchFormations(string name, Color formationColor, MatchRule[] rules)
         {
