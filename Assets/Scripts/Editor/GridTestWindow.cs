@@ -19,7 +19,7 @@ public class GridTestWindow : EditorWindow
 
     [SerializeField] private TextAsset[] testFiles;
 
-    private bool isFullRun = false;
+    private bool stopWhenTestFailed = false;
     private TextAsset currentTestFile;
     private Grid currentGrid = null;
     
@@ -74,14 +74,21 @@ public class GridTestWindow : EditorWindow
         GUILayout.FlexibleSpace();
         EditorGUI.BeginDisabledGroup(testFiles == null || testFiles.Length <= 0);
         
+        EditorGUILayout.BeginHorizontal();
+        
+        if (GUILayout.Button("Run Test"))
+        {
+            RunFullTest(stopWhenTestFailed);
+        }
+        
+        stopWhenTestFailed = EditorGUILayout.Toggle("Stop when test failed", stopWhenTestFailed, GUILayout.Width(250));
+        
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+        
         if (GUILayout.Button("Check Next Test"))
         {
             ReadNextTestFile();
-        }
-
-        if (GUILayout.Button("Run Test"))
-        {
-            isFullRun = true;
         }
 
         if (GUILayout.Button("Clear"))
@@ -191,6 +198,35 @@ public class GridTestWindow : EditorWindow
 
         bool allTestPassed = gridAnalyzer.TestAnalyze(currentGrid);
         LogTestResults(allTestPassed);
+    }
+
+    private void RunFullTest(bool stopWhenTestFailed)
+    {
+        currentTestFile = null;
+        currentGrid = null;
+
+        currentTestIndex++;
+        for (; currentTestIndex < testFiles.Length; currentTestIndex++)
+        {
+            currentTestFile = testFiles[currentTestIndex];
+            
+            Grid currentGrid = GridLoader.LoadFromFile(currentTestFile);
+            currentGrid.SetColor(DEFAULT_DIGIT_COLOR);
+            
+            MatchTest[] matchTests = GridLoader.FillTests(currentTestFile, GetMatchTest());
+            gridAnalyzer.MatchTests = matchTests;
+            
+            bool allTestPassed = gridAnalyzer.TestAnalyze(currentGrid);
+            LogTestResults(allTestPassed);
+
+            if (!allTestPassed && stopWhenTestFailed)
+            {
+                this.currentGrid = currentGrid;
+                break;
+            }
+        }
+        
+        Debug.Log("TEST FINISHED");
     }
 
     private void LogTestResults(bool isSuccess)
