@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GMI_Technical_Assessment.Code
 {
-    internal static class GridLoader
+    public static class GridLoader
     {
         public static Grid LoadFromFile(string fileName)
         {

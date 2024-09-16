@@ -4,23 +4,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace GMI_Technical_Assessment.Code
 {
     public abstract class MatchRule
     {
-        protected ConsoleColor requiredColor;
-        protected ConsoleColor matrixColor;
+        protected Color requiredColor;
+        protected Color matrixColor;
 
-        public ConsoleColor RequiredColor { get { return requiredColor; } set { requiredColor = value; } }
-        public ConsoleColor MatrixColor { get { return matrixColor; } set { matrixColor = value; } }
+        public Color RequiredColor { get { return requiredColor; } set { requiredColor = value; } }
+        public Color MatrixColor { get { return matrixColor; } set { matrixColor = value; } }
 
-        public MatchRule(ConsoleColor matrixColor)
+        public MatchRule(Color matrixColor)
         {
             this.matrixColor = matrixColor;
         }
 
-        public MatchRule(ConsoleColor matrixColor, ConsoleColor requiredColor)
+        public MatchRule(Color matrixColor, Color requiredColor)
         {
             this.matrixColor = matrixColor;
             this.requiredColor = requiredColor;
@@ -31,11 +32,11 @@ namespace GMI_Technical_Assessment.Code
 
     public class UnmatchedRule : MatchRule
     {
-        public UnmatchedRule(ConsoleColor matrixColor) : base(matrixColor)
+        public UnmatchedRule(Color matrixColor) : base(matrixColor)
         {
         }
 
-        public UnmatchedRule(ConsoleColor matrixColor, ConsoleColor requiredColor) : base(matrixColor, requiredColor)
+        public UnmatchedRule(Color matrixColor, Color requiredColor) : base(matrixColor, requiredColor)
         {
         }
 
@@ -62,7 +63,7 @@ namespace GMI_Technical_Assessment.Code
 
     public class CrossShape : MatchRule
     {
-        public CrossShape(ConsoleColor matrixColor) : base(matrixColor)
+        public CrossShape(Color matrixColor) : base(matrixColor)
         {
         }
 
@@ -158,7 +159,7 @@ namespace GMI_Technical_Assessment.Code
 
     public class TShape : MatchRule
     {
-        public TShape(ConsoleColor matrixColor) : base(matrixColor)
+        public TShape(Color matrixColor) : base(matrixColor)
         {
         }
 
@@ -355,7 +356,7 @@ namespace GMI_Technical_Assessment.Code
         private string name = "test";
         private int[,] pattern;
 
-        public ShapeRule(ConsoleColor matrixColor, string name, int[,] pattern) : base(matrixColor)
+        public ShapeRule(Color matrixColor, string name, int[,] pattern) : base(matrixColor)
         {
             this.pattern = pattern;
             this.name = name;

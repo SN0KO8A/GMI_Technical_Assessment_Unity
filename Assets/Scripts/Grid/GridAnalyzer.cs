@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace GMI_Technical_Assessment.Code
 {
-    internal class GridAnalyzer
+    public class GridAnalyzer
     {
         private MatchFormations[] formations;
         private MatchTest[] tests;
@@ -56,7 +56,7 @@ namespace GMI_Technical_Assessment.Code
         {
             foreach (MatchFormations rule in formations)
             {
-                rule.DisplayResult();
+                //rule.DisplayResult();
             }
         }
 
@@ -64,7 +64,7 @@ namespace GMI_Technical_Assessment.Code
         {
             for (int i = 0; i < formations.Length; i++)
             {
-                formations[i].DisplayResult();
+                //formations[i].DisplayResult();
 
                 if (i < tests.Length)
                 {

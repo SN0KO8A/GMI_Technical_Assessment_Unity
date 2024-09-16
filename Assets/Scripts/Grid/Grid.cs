@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using UnityEngine;
 
 namespace GMI_Technical_Assessment.Code
 {
@@ -21,29 +17,12 @@ namespace GMI_Technical_Assessment.Code
                 for (int j = 0; j < grid.GetLength(1); j++)
                 {
                     gridMaxtrix[i,j].value = grid[i,j];
-                    gridMaxtrix[i,j].color = ConsoleColor.White;
+                    gridMaxtrix[i,j].color = Color.white;
                 }
             }
         }
 
-        public void DisplayMatrix()
-        {
-            string gridString = string.Empty;
-
-            for (int i = 0; i < gridMaxtrix.GetLength(0); i++)
-            {
-                for (int j = 0; j < gridMaxtrix.GetLength(1); j++)
-                {
-                    Console.ForegroundColor = gridMaxtrix[i,j].color;
-                    Console.Write(" " + gridMaxtrix[i,j].value);
-                    Console.ResetColor();
-                }
-
-                Console.Write('\n');
-            }
-        }
-
-        public void SetColor(ConsoleColor color)
+        public void SetColor(Color color)
         {
             for (int i = 0; i < gridMaxtrix.GetLength(0); i++)
             {
@@ -57,9 +36,9 @@ namespace GMI_Technical_Assessment.Code
         public struct GridCell
         {
             public int value;
-            public ConsoleColor color;
+            public Color color;
 
-            public GridCell(int value = 0, ConsoleColor color = ConsoleColor.White)
+            public GridCell(int value, Color color)
             {
                 this.value = value;
                 this.color = color;

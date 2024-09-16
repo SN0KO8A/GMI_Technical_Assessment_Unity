@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using UnityEngine;
 
 namespace GMI_Technical_Assessment.Code
 {
@@ -13,9 +10,9 @@ namespace GMI_Technical_Assessment.Code
 
         protected MatchRule[] rules;
 
-        protected ConsoleColor formationColor;
+        protected Color formationColor;
 
-        public MatchFormations(string name, ConsoleColor formationColor, MatchRule[] rules)
+        public MatchFormations(string name, Color formationColor, MatchRule[] rules)
         {
             matchesCount = 0;
 
@@ -39,16 +36,7 @@ namespace GMI_Technical_Assessment.Code
             return matchesCount;
         }
 
-        public virtual void DisplayResult()
-        {
-            Console.ForegroundColor = formationColor;
-            Console.Write(name);
-            Console.ResetColor();
-
-            Console.Write($" Count: {matchesCount}\n");
-        }
-
-        private void SetRulesRequiredColor(ConsoleColor formationColor)
+        private void SetRulesRequiredColor(Color formationColor)
         {
             foreach (var rule in rules)
             {
